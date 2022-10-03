@@ -12,7 +12,7 @@ public class Exam {
     private String result;
     private Date date;
     private String teacher;
-    private int grade;
+    private Double grade;
     private int credits_reg;
     private int credits_obt;
 

@@ -2,64 +2,59 @@ package edu.mriabov.service;
 
 import edu.mriabov.config.CSVParserConfig;
 import edu.mriabov.model.Record;
-import edu.mriabov.model.Student;
+import edu.mriabov.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.parser.Parser;
+import java.sql.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class ParserService {
 
     private final CSVParserConfig csvParserConfig;
-    private final String delimiter;
-
-    public ParserService(CSVParserConfig csvParserConfig) {
-        this.csvParserConfig = csvParserConfig;
-        delimiter = csvParserConfig.getDelimiter();
-    }
+    private final ValidatorService validatorService;
 
     public Record parse(List<String> lines) {
+        boolean isCorrupt = false;
         Student student = new Student();
-        Record record = new Record(student, null);
+        Course course = new Course();
+        Study study = new Study();
+        Exam exam = new Exam();
+        study.setCourse(Set.of(course));
+        course.setExam(exam);
+        Record record = new Record(student, new HashSet<>());
 
-        String[] headerSplit = lines.get(0).split(delimiter);
-        for (int i = 1; i < lines.size(); i++) {
-            String[] currentLineSplit = lines.get(i).split(delimiter);
-            for (int j = 0; j < currentLineSplit.length; j++) {
-                switch (headerSplit[j]) {
-                    case "Studentid" ->
-                    case  "Name" ->
-                    case  "Surname" ->
-                    case  "Study id" ->
-                    case  "field code" ->
-                    case  "field" ->
-                    case  "course year of study" ->
-                    case  "course semester" ->
-                    case  "course academic year" ->
-                    case  "course code" ->
-                    case  "Course name" ->
-                    case  "course type" ->
-                    case  "Exam result" ->
-                    case  "register date" ->
-                    case  "registered by" ->
-                    case  "Exam date" ->
-                    case  "Exam teacher" ->
-                    case  "retaked course - code" ->
-                    case  "retaked course - name" ->
-                    case  "retaked course - academic year" ->
-                    case  "approved forgived course - code" ->
-                    case  "approved forgived course - name" ->
-                    case  "approved forgived course - academic year" ->
-                    case  "exam grade" ->
-                    case  "Credits for enrolled courses per academic year" ->
-                    case  "Credits for passed courses for period" ->
-                    case  "exam credits registered" ->
-                    case  "exam credits obtained" ->
-                    case "" -> record.getStudent().getId();
-                }
-            }
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+            List<String> split = List.of(line.split(csvParserConfig.getDelimiter()));
+            student.setId(split.get(0));
+            student.setName(split.get(1));
+            student.setSurname(split.get(2));
+            study.setId(split.get(3));
+            study.setFieldCode(split.get(4));
+            study.setField(split.get(5));
+            course.setYear_of_study(split.get(6));
+            course.setSemester(split.get(7));
+            course.setAyear(split.get(8));
+            course.setCode(split.get(9));
+            course.setName(split.get(10));
+            course.setType(split.get(11));
+            exam.setResult(split.get(12));
+            if (validatorService.isValidDate(split.get(15))) exam.setDate(Date.valueOf(split.get(12)));
+            else isCorrupt = true;
+            exam.setTeacher(split.get(16));
+            if (validatorService.isNumber(split.get(22)))
+                exam.setGrade(Double.valueOf(split.get(22)));
+            if (validatorService.isNumber(split.get(26))) exam.setCredits_reg(Integer.parseInt(split.get(26)));
+            else isCorrupt = true;
+            if (validatorService.isNumber(split.get(27))) exam.setCredits_obt(Integer.parseInt(split.get(27)));
+            else isCorrupt = true;
+
+
         }
         return record;
     }

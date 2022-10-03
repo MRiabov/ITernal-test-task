@@ -1,17 +1,18 @@
 package edu.mriabov.service;
 
-import com.opencsv.CSVParser;
-import edu.mriabov.config.CSVParserConfig;
-import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.ValidationAnnotationUtils;
-
-import java.util.List;
-
-
 public class ValidatorService {
 
-    public boolean validate(){
-
+    public boolean isNumber(String s) {
+        s = s.replace(',', '.');
+        for (char c : s.toCharArray()) {
+            if (!Character.isDigit(c) || c == '.') return false;
+        }
+        return true;
     }
+
+    public boolean isValidDate(String s) {
+        return true;//todo!!!
+    }
+
 
 }
