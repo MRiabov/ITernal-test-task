@@ -5,12 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Student {
+public class Study {
 
     private String id;
-    private String name;
+    private String field;
     private String surname;
-
-
 }
-
