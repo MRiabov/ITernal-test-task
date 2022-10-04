@@ -18,7 +18,7 @@ public class InputCSV {
 
     public List<String> getLinesFromCSV() {
         List<String> result = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File("input.csv"));) {
+        try (Scanner scanner = new Scanner(new File(config.getInputPath()));) {
             scanner.useDelimiter(config.getDelimiter());
             while (scanner.hasNext()) {
                 result.add(scanner.nextLine());
