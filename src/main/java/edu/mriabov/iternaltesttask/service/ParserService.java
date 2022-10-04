@@ -1,8 +1,11 @@
-package edu.mriabov.service;
+package edu.mriabov.iternaltesttask.service;
 
-import edu.mriabov.config.CSVParserConfig;
-import edu.mriabov.model.Record;
-import edu.mriabov.model.*;
+import edu.mriabov.iternaltesttask.config.CSVParserConfig;
+import edu.mriabov.iternaltesttask.model.Course;
+import edu.mriabov.iternaltesttask.model.Exam;
+import edu.mriabov.iternaltesttask.model.Record;
+import edu.mriabov.iternaltesttask.model.Student;
+import edu.mriabov.iternaltesttask.model.Study;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +29,7 @@ public class ParserService {
         Exam exam = new Exam();
         study.setCourse(Set.of(course));
         course.setExam(exam);
-        Record record = new Record(student, new HashSet<>());
+        edu.mriabov.iternaltesttask.model.Record record = new edu.mriabov.iternaltesttask.model.Record(student, new HashSet<>());
 
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
@@ -53,8 +56,6 @@ public class ParserService {
             else isCorrupt = true;
             if (validatorService.isNumber(split.get(27))) exam.setCredits_obt(Integer.parseInt(split.get(27)));
             else isCorrupt = true;
-
-
         }
         return record;
     }

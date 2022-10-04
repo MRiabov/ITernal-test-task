@@ -1,16 +1,13 @@
-package edu.mriabov.io;
+package edu.mriabov.iternaltesttask.io;
 
-import com.opencsv.CSVReader;
-import edu.mriabov.config.CSVParserConfig;
+import edu.mriabov.iternaltesttask.config.CSVParserConfig;
 import lombok.RequiredArgsConstructor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class GetCSV {

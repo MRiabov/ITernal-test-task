@@ -1,4 +1,4 @@
-package edu.mriabov.service;
+package edu.mriabov.iternaltesttask.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

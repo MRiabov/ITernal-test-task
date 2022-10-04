@@ -1,4 +1,4 @@
-package edu.mriabov.service;
+package edu.mriabov.iternaltesttask.service;
 
 public class ValidatorService {
 

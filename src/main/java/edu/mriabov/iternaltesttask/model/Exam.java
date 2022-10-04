@@ -1,4 +1,4 @@
-package edu.mriabov.model;
+package edu.mriabov.iternaltesttask.model;
 
 import lombok.Getter;
 import lombok.Setter;
