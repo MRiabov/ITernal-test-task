@@ -1,17 +1,24 @@
 package edu.mriabov.iternaltesttask.service;
 
+import edu.mriabov.iternaltesttask.model.Record;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import java.io.FileOutputStream;
 
 @Service
 @RequiredArgsConstructor
 public class XMLCreatorService {
 
-    private final XSDCreatorService xsdCreatorService;
+    @SneakyThrows
+    public void fillXML(Record record) {
+        JAXBContext contextObj = JAXBContext.newInstance(Record.class);
 
-    void create(List<String> arguments){
-
+        Marshaller marshallerObj = contextObj.createMarshaller();
+        marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshallerObj.marshal(record, new FileOutputStream("output.xml"));
     }
 }

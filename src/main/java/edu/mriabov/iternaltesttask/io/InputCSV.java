@@ -2,6 +2,7 @@ package edu.mriabov.iternaltesttask.io;
 
 import edu.mriabov.iternaltesttask.config.CSVParserConfig;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,13 +11,14 @@ import java.util.List;
 import java.util.Scanner;
 
 @RequiredArgsConstructor
-public class GetCSV {
+@Component
+public class InputCSV {
 
     private final CSVParserConfig config;
 
     public List<String> getLinesFromCSV() {
         List<String> result = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File("Employee.csv"));) {
+        try (Scanner scanner = new Scanner(new File("input.csv"));) {
             scanner.useDelimiter(config.getDelimiter());
             while (scanner.hasNext()) {
                 result.add(scanner.nextLine());
