@@ -18,7 +18,7 @@ public class StartupApplicationListener implements ApplicationListener<ContextRe
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        xmlCreatorService.fillXML(parserService.parse(inputCSV.getLinesFromCSV()));
+        xmlCreatorService.fillMultipleXML(parserService.parse(inputCSV.getLinesFromCSV()));
     }
 
 }
