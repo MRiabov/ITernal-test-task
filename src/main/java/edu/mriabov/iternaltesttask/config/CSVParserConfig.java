@@ -13,7 +13,7 @@ public class CSVParserConfig {
 
     private String inputPath;
     private String outputPath;
-    private String delimiter;
     private String invalidOutputPath;
+    private String delimiter;
 
 }

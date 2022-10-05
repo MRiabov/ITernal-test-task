@@ -1,4 +1,4 @@
-package edu.mriabov.iternaltesttask.io;
+package edu.mriabov.iternaltesttask.csv;
 
 import edu.mriabov.iternaltesttask.config.CSVParserConfig;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 @RequiredArgsConstructor
 @Component
-public class InputCSV {
+public class CSVReader {
 
     private final CSVParserConfig config;
 

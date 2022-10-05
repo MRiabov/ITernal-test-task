@@ -1,4 +1,4 @@
-package edu.mriabov.iternaltesttask.service;
+package edu.mriabov.iternaltesttask.xml;
 
 import edu.mriabov.iternaltesttask.config.CSVParserConfig;
 import edu.mriabov.iternaltesttask.model.Record;

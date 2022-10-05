@@ -1,8 +1,8 @@
 package edu.mriabov.iternaltesttask.listener;
 
-import edu.mriabov.iternaltesttask.io.InputCSV;
-import edu.mriabov.iternaltesttask.service.ParserService;
-import edu.mriabov.iternaltesttask.service.XMLCreatorService;
+import edu.mriabov.iternaltesttask.csv.CSVReader;
+import edu.mriabov.iternaltesttask.csv.CSVParser;
+import edu.mriabov.iternaltesttask.xml.XMLCreatorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -13,12 +13,13 @@ import org.springframework.stereotype.Component;
 public class StartupApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
 
     private final XMLCreatorService xmlCreatorService;
-    private final ParserService parserService;
-    private final InputCSV inputCSV;
+    private final CSVParser CSVParser;
+    private final CSVReader CSVReader;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        xmlCreatorService.fillMultipleXML(parserService.parse(inputCSV.getLinesFromCSV()));
+        xmlCreatorService.fillMultipleXML(
+                CSVParser.parseData().getRightValue());
     }
 
 }
