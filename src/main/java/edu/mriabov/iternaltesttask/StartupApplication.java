@@ -1,4 +1,4 @@
-package edu.mriabov.iternaltesttask.listener;
+package edu.mriabov.iternaltesttask;
 
 import edu.mriabov.iternaltesttask.csv.CSVReader;
 import edu.mriabov.iternaltesttask.csv.CSVParser;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class StartupApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
+public class StartupApplication implements ApplicationListener<ContextRefreshedEvent> {
 
     private final XMLCreatorService xmlCreatorService;
     private final CSVParser CSVParser;

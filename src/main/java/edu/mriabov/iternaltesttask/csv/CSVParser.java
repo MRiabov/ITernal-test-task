@@ -40,7 +40,6 @@ public class CSVParser {
             log.info("Parsing student_id = '{}' info", student.getId());
             Map<String, Study> studySet = getStudentInfo(studentsParams.get(student));
             Record studentInfo = new Record(student, studySet);
-
             studentsInfo.add(studentInfo);
         }
         return new Pair<>(getInvalidLines(lines), studentsInfo);

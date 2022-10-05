@@ -1,17 +1,8 @@
 package edu.mriabov.iternaltesttask.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-@Getter
-@Setter
-@XmlRootElement
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class Student {
 
     private String id;
