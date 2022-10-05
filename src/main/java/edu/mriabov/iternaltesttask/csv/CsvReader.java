@@ -1,6 +1,6 @@
 package edu.mriabov.iternaltesttask.csv;
 
-import edu.mriabov.iternaltesttask.config.CSVParserConfig;
+import edu.mriabov.iternaltesttask.config.Config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,9 +12,9 @@ import java.util.Scanner;
 
 @RequiredArgsConstructor
 @Component
-public class CSVReader {
+public class CsvReader {
 
-    private final CSVParserConfig config;
+    private final Config config;
 
     public List<String> getLinesFromCSV() {
         List<String> result = new ArrayList<>();

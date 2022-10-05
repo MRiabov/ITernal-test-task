@@ -1,6 +1,6 @@
 package edu.mriabov.iternaltesttask.csv;
 
-import edu.mriabov.iternaltesttask.config.CSVParserConfig;
+import edu.mriabov.iternaltesttask.config.Config;
 import edu.mriabov.iternaltesttask.model.Record;
 import edu.mriabov.iternaltesttask.model.Student;
 import edu.mriabov.iternaltesttask.model.Study;
@@ -19,10 +19,10 @@ import static edu.mriabov.iternaltesttask.utils.ValidatorUtils.isLineValid;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CSVParser {
+public class CsvParser {
 
-    private final CSVParserConfig csvConfig;
-    private final CSVReader csvReader;
+    private final Config csvConfig;
+    private final CsvReader csvReader;
 
     public Pair<List<String[]>, Set<Record>> parseData() {
         List<String> linesFromCSV = csvReader.getLinesFromCSV()

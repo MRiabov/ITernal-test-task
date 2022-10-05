@@ -1,6 +1,6 @@
 package edu.mriabov.iternaltesttask.xml;
 
-import edu.mriabov.iternaltesttask.config.CSVParserConfig;
+import edu.mriabov.iternaltesttask.config.Config;
 import edu.mriabov.iternaltesttask.model.Record;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,11 +16,11 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class XMLCreatorService {
 
-    private final CSVParserConfig csvParserConfig;
+    private final Config config;
 
     public void fillMultipleXML(Set<Record> records){
         for (Record record : records) {
-            fillXML(record, csvParserConfig.getOutputPath()+record.getStudent().getId()+".xml");
+            fillXML(record, config.getOutputPath()+record.getStudent().getId()+".xml");
         }
     }
 

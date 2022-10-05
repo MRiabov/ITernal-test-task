@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "csvparser")
 @Component
 @Setter
-public class CSVParserConfig {
+public class Config {
 
     private String inputPath;
     private String outputPath;
