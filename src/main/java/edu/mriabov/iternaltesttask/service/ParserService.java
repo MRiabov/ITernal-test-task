@@ -7,9 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -19,44 +17,42 @@ public class ParserService {
     private final CSVParserConfig csvParserConfig;
     private final ValidatorService validatorService;
 
-    public Record parse(List<String> lines) {
+    public Set<Record> parse(List<String> lines) {
         boolean isCorrupt = false;
-        Student student = new Student();
-        Course course = new Course();
-        Study study = new Study();
-        Exam exam = new Exam();
-        study.setCourse(Set.of(course));
-        course.setExam(exam);
-        edu.mriabov.iternaltesttask.model.Record record = new edu.mriabov.iternaltesttask.model.Record(student, new HashSet<>());
-
+        Map<String, Record> records = new HashMap<>();
         for (int i = 1; i < lines.size(); i++) {
             String line = lines.get(i);
             List<String> split = List.of(line.split(csvParserConfig.getDelimiter()));
-            student.setId(split.get(0));
-            student.setName(split.get(1));
-            student.setSurname(split.get(2));
-            study.setId(split.get(3));
-            study.setFieldCode(split.get(4));
-            study.setField(split.get(5));
-            course.setYear_of_study(split.get(6));
-            course.setSemester(split.get(7));
-            course.setAyear(split.get(8));
-            course.setCode(split.get(9));
-            course.setName(split.get(10));
-            course.setType(split.get(11));
-            exam.setResult(split.get(12));
-            if (validatorService.isValidDate(split.get(15)))
-                exam.setDate(split.get(15));
-            else isCorrupt = true;
-            exam.setTeacher(split.get(16));
-            if (validatorService.isNumber(split.get(23)))
-                exam.setGrade(Double.valueOf(split.get(23)));
-            if (validatorService.isNumber(split.get(26))) exam.setCredits_reg(Integer.parseInt(split.get(26)));
-            else isCorrupt = true;
-            if (validatorService.isNumber(split.get(27))) exam.setCredits_obt(Integer.parseInt(split.get(27)));
-            else isCorrupt = true;
+            if (!(validatorService.isValidDate(split.get(15)) || validatorService.isNumber(split.get(23)) ||
+                    validatorService.isNumber(split.get(26)) || validatorService.isNumber(split.get(27))))
+                isCorrupt = true;
+            records.put(split.get(0), populateRecord(records, split));
         }
-        log.info("Finished CSV processing! There were " + lines.size()+ " lines.");
-        return record;
+        if (isCorrupt) log.warn("CSV input is wrong!");
+        log.info("Finished CSV processing! There were " + lines.size() + " lines.");
+        return new HashSet<>(records.values());
+    }
+
+    private static Record populateRecord(Map<String, Record> records, List<String> split) {
+
+        Exam exam = new Exam(split.get(12), split.get(15), split.get(16),
+                split.get(23),Integer.parseInt(split.get(26)),Integer.parseInt(split.get(27)));
+        Course course = new Course(split.get(9), split.get(10), split.get(11), split.get(7), split.get(8), split.get(6), exam);
+        Record thisRecord;
+        Student student;
+        if (!records.containsKey(split.get(0))) {
+            student = new Student(split.get(0), split.get(1), split.get(2));
+            thisRecord = new Record(student, new HashMap<>());
+            records.put(split.get(0), thisRecord);
+        } else {
+            thisRecord = records.get(split.get(0));
+        }
+        if (thisRecord.getStudies().containsKey(split.get(3))) {
+            thisRecord.getStudies().get(split.get(3)).getCourse();
+        } else {
+            thisRecord.getStudies().put(split.get(3), new Study(split.get(3), split.get(4), split.get(5),
+                    Set.of(course)));
+        }
+        return thisRecord;
     }
 }

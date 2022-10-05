@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Set;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -15,7 +15,8 @@ import java.util.Set;
 @XmlRootElement
 public class Record {
 
+
     private Student student;
-    private Set<Study> studies;
+    private Map<String, Study> studies;
 
 }

@@ -18,7 +18,6 @@ public class Study {
     private String id;
     private String field;
     private String fieldCode;
-    private String surname;
     private Set<Course> course;
 
 }

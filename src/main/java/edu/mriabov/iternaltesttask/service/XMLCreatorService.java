@@ -1,5 +1,6 @@
 package edu.mriabov.iternaltesttask.service;
 
+import edu.mriabov.iternaltesttask.config.CSVParserConfig;
 import edu.mriabov.iternaltesttask.model.Record;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -13,12 +14,14 @@ import java.io.FileOutputStream;
 @RequiredArgsConstructor
 public class XMLCreatorService {
 
+    private final CSVParserConfig csvParserConfig;
+
     @SneakyThrows
     public void fillXML(Record record) {
         JAXBContext contextObj = JAXBContext.newInstance(Record.class);
 
         Marshaller marshallerObj = contextObj.createMarshaller();
         marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshallerObj.marshal(record, new FileOutputStream("output.xml"));
+        marshallerObj.marshal(record, new FileOutputStream(csvParserConfig.getOutputPath()));
     }
 }
