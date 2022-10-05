@@ -16,10 +16,13 @@ public class XMLCreatorService {
 
     private final CSVParserConfig csvParserConfig;
 
+    public void fillMultipleXML(Record record){
+
+    }
+
     @SneakyThrows
     public void fillXML(Record record) {
         JAXBContext contextObj = JAXBContext.newInstance(Record.class);
-
         Marshaller marshallerObj = contextObj.createMarshaller();
         marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshallerObj.marshal(record, new FileOutputStream(csvParserConfig.getOutputPath()));
