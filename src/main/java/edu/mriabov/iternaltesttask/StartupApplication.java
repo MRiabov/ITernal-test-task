@@ -1,15 +1,13 @@
 package edu.mriabov.iternaltesttask;
 
-import edu.mriabov.iternaltesttask.config.Config;
-import edu.mriabov.iternaltesttask.csv.CsvReader;
 import edu.mriabov.iternaltesttask.csv.CsvParser;
+import edu.mriabov.iternaltesttask.directory.DirectoryCreator;
 import edu.mriabov.iternaltesttask.xml.XMLCreatorService;
+import edu.mriabov.iternaltesttask.zip.ZipCreator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-
-import java.io.File;
 
 @Component
 @RequiredArgsConstructor
@@ -17,14 +15,18 @@ public class StartupApplication implements ApplicationListener<ContextRefreshedE
 
     private final XMLCreatorService xmlCreatorService;
     private final CsvParser csvParser;
-    private final Config config;
+    private final ZipCreator zipCreator;
+    private final DirectoryCreator directoryCreator;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        new File(config.getOutputPath()).mkdirs();
-        new File(config.getInvalidOutputPath()).mkdirs();
+        directoryCreator.clearDirectories();
         xmlCreatorService.fillMultipleXML(
                 csvParser.parseData().getRightValue());
+        zipCreator.toZip();
     }
+
+
+
 
 }
