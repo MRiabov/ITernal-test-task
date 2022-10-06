@@ -18,20 +18,20 @@ public class XMLCreatorService {
 
     private final Config config;
 
-    public void fillMultipleXML(Set<Record> records){
-        for (Record record : records) {
-            fillXML(record, config.getOutputPath()+record.getStudent().getId()+".xml");
+    public void createXML(Set<Record> records){
+        for (Record studentRecord : records) {
+            fillXML(studentRecord, config.getOutputPath()+studentRecord.getStudent().getId()+".xml");
         }
     }
 
 
-    private void fillXML(Record record, String path){
+    private void fillXML(Record studentRecord, String path){
         JAXBContext contextObj;
         try {
             contextObj = JAXBContext.newInstance(Record.class);
             Marshaller marshallerObj = contextObj.createMarshaller();
             marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshallerObj.marshal(record, new FileOutputStream(path));
+            marshallerObj.marshal(studentRecord, new FileOutputStream(path));
         } catch (JAXBException | FileNotFoundException e) {
             throw new RuntimeException(e);
         }

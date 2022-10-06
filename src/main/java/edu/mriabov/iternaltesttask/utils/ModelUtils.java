@@ -24,7 +24,7 @@ public class ModelUtils {
     public static Map<String,Study> getStudentInfo(List<String[]> studentParams) {
         Map<String,Study> result = new HashMap<>();
 
-        Map<Study, Set<Course>> studyCourses = getStudyInfos(studentParams);
+        Map<Study, Set<Course>> studyCourses = getStudyInfo(studentParams);
         for (Map.Entry<Study, Set<Course>> studyInfo : studyCourses.entrySet()) {
             Study study = studyInfo.getKey();
             study.setCourse(studyInfo.getValue());
@@ -33,7 +33,7 @@ public class ModelUtils {
         return result;
     }
 
-    private static Map<Study, Set<Course>> getStudyInfos(List<String[]> studentParams) {
+    private static Map<Study, Set<Course>> getStudyInfo(List<String[]> studentParams) {
         Map<Study, Set<Course>> studyCourses = new HashMap<>();
         for (String[] params : studentParams) {
             Study study = getStudy(params);

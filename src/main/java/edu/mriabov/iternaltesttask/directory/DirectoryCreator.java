@@ -4,8 +4,11 @@ import edu.mriabov.iternaltesttask.config.Config;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.FileSystemUtils;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 
 @RequiredArgsConstructor
 @Component
@@ -27,7 +30,12 @@ public class DirectoryCreator {
     }
 
     private boolean deleteDirectories() {
-        return new File(config.getOutputPath()).delete() &&
-                new File(config.getInvalidOutputPath()).delete();
+
+        try {
+            return FileSystemUtils.deleteRecursively(Path.of(config.getOutputPath().substring(0, config.getOutputPath().length() - 1))) &&
+                    FileSystemUtils.deleteRecursively(Path.of(config.getInvalidOutputPath().substring(0, config.getInvalidOutputPath().length() - 1)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
