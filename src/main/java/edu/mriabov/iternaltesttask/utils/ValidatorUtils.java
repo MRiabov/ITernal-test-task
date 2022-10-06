@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 @NoArgsConstructor(access = AccessLevel.NONE)
 public class ValidatorUtils {
@@ -21,7 +22,7 @@ public class ValidatorUtils {
     public static boolean isDateValid(String date) {
         try {
             DateTimeFormatter.ofPattern("dd.MM.yyyy").parse(date);
-        } catch (IllegalArgumentException ex) {
+        } catch (DateTimeParseException dateTimeParseException) {
             return false;
         }
         return true;
